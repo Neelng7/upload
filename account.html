@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no, user-scalable=0"/>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>        
+    
+    <link class="link" rel="icon" href="images/Logo.png" type="image/icon type">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="account.css">
+    <script src="compute.js" defer></script>
+
+    <script src="authentication.js" defer></script>
+    <title id="account-title">Account - Prefute</title>
+</head>
+<body>
+    <header id="portrait"><br>
+        <a href="/"><img src="https://neelng7.github.io/prefute/images/LogoWhite.png" alt=""></a>
+        <b>Prefute</b>
+        <button id="dropdown"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="list-ul" role="img" 
+            style="height:25px;width:25px;"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-list-ul 
+            fa-lg"><path fill="currentColor" d="M16 96C16 69.49 37.49 48 64 48C90.51 48 112 69.49 112 96C112 122.5 90.51 144 64 144C37.49 
+            144 16 122.5 16 96zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 
+            64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 
+            192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 
+            192 384H480zM16 416C16 389.5 37.49 368 64 368C90.51 368 112 389.5 112 416C112 442.5 90.51 464 64 464C37.49 464 16 442.5 16 416zM112 
+            256C112 282.5 90.51 304 64 304C37.49 304 16 282.5 16 256C16 229.5 37.49 208 64 208C90.51 208 112 229.5 112 256z" ></path></svg></button>
+        <br> <br>
+    </header>
+    <header id="landscape">
+        <div class="page-title">
+            <a href="/"><img src="https://neelng7.github.io/prefute/images/LogoWhite.png" alt=""></a>
+            <h1 id="h1main">Prefute</h1></div>
+        <div class="page-anchors">
+            <a title="About (Alt+1)" href="/">About</a>
+            <a title="Search (Alt+2)" href="search.html">Search</a>
+            <a title="New Prediction (Alt+3)" href="new.html">New Prediction</a>
+            <a class="selected" title="My Account (Alt+4)" href="account.html">My Account</a>
+            <a title="Report Problem (Alt+5)" id="reportAnchor">&#x2691;</a><br>
+        </div>
+    </header><br><br><br>
+    <div id="dropdown-menu">
+        <ul><br>
+            <a href='/'><li>About</li></a>
+            <a href="search.html"><li>Search</li></a>
+            <a href="new.html"><li>New Prediction</li></a>
+            <a href="account.html"><li><i class="fa-solid fa-circle-user"></i> My Account</li></a>
+            <li id="reportAnchorDropdown">Report a Problem &#x2691;</li>
+        </ul>
+    </div>
+
+ <main >   
+    <div class="account-details-container hide">
+        <h1>My Account</h1>
+
+        <div class="account-display-container">
+        <img class="account-picture" src="https://neelng7.github.io/prefute/images/userProfilePicDefault.png">
+        <div class="account-info-conatiner">
+            <p id="account-name"></p>
+            <span class="prediction-count">
+                <p>Predictions: </p>
+                <p><span id="public-predictions-count"></span> Public</p>
+                <p><span id="private-predictions-count"></span> Private</p>
+            </span>
+            <p id="account-email"></p><br>
+            <div class="account-info-btns">
+                <button id="signout-btn">Sign Out</button>
+                <button id="edit-profile-btn">Edit Profile</button><br>
+            </div>
+            <!-- <a href="new.html"><button id="new-prediction-redirect" class="account-btn-last">New Prediction</button></a> -->
+            <button id="view-favourites" class="account-btn-last">View Favourites</button>
+        </div>
+        </div><br>
+
+        <h2>My Predictions</h2>
+        <div class="line-seperator"></div>
+        <span id="load"><br><br><br>
+            <i class="fa-solid fa-circle-notch fa-spin" id="search-load"></i>
+        </span>
+        <div class="predictions-container">
+            <p id="no-predictions-account" class="hide">No Predictions</p><br>
+            <div id="prediction-wrapper">
+                <div class="prediction-cards" data-prediction-cards-container></div>
+            </div>
+            <template data-predictions-template>
+                <a target="_blank" href="#" class="card">
+                    <i style="font-size:24px" id="predictionLock" data-lock class="fa"></i>
+                    <img class="releasedIcon" data-released><br>
+                    <b class="header" data-prediction-id></b><br>
+                    <div data-prediction></div>
+                    <div data-release-date></div>
+                </a>
+            </template>
+        </div>
+        
+    </div>
+
+<dialog class="dialog" id="edit-profile-dialog">
+    <button title="Cancel" class="exitModal" id="exit-modal">&#x2715;</button>
+    
+    <h2>Edit Profile</h2>
+    
+    <label for="upload-profile-pic-inp">
+    <img class="account-picture" alt="" id="edit-profile-pic" src="https://neelng7.github.io/prefute/images/userProfilePicDefault.png">
+    </label><br>
+    <label for="upload-profile-pic-inp" id="upload-profile-pic-label" class="button-underline">
+        Change Profile Photo
+    </label><br class="br">
+    <button id="delete-profile-pic" class="button-underline">Delete Profile Picture</button><br class="br">
+    <span id="imageName"></span>
+    <input type="file" id="upload-profile-pic-inp" accept="image/jpeg, image/png, image/jpg">
+
+    <div class="edit-profile-container">
+
+        <label for="edit-display-name"><pre>Display Name:</pre></label>
+        <input type="text" name="name" id="edit-display-name" placeholder="name"><br>
+        
+        <label for="edit-dob"><pre>Date of Birth:  </pre></label>
+        <input type="date" id="edit-dob"><br>
+
+        <label for="edit-email"><pre>Email Id:          </pre></label>
+        <input type="email" name="email" disabled id="edit-email" placeholder="email"><br>
+        
+        <div class="verify-email-container">
+            <span id="is-email-verified"></span>
+            <i class="fa-solid" id="check-icon"></i>
+            <button id="verify-email" class="hide">Verify Email</button>
+        </div>
+        
+        <button id="save-account-changes"  class="btn">Save Changes</button><br>
+        <!-- <i class="fa-solid fa-circle-notch fa-spin" id="search-load"></i> -->
+
+        <div class="edit-profile-options-wrapper">
+            <div class="line-seperator edit-modal"></div>
+            <button id="edit-account-change-password">Change Password</button><br>
+            <button id="delete-account">Delete Account</button><br>
+            <button id="edit-account-signout-btn">Sign Out</button>
+        </div>
+    </div>
+</dialog>
+
+<dialog class="dialog" id="favourites-dialog">
+    <button title="Cancel" class="exitModal" id="exit-favourties-modal">&#x2715;</button>
+    <h1>Favourites</h1>
+    <div class="line-seperator edit-modal"></div>
+    <div id="favourites-wrapper">
+        <div id="noFavourites">
+            <br><br>
+            <h3>No Favourites</h3>
+            <p>Users you add to your favorites<br>are shown here.</p>
+        </div>
+        <div class="fav-user-cards" data-favourite-cards-container></div>
+    </div>
+    <template data-favourites-template>
+        <div class="favourites-card">
+            <div class="fav-wrapper">
+            <img src="https://neelng7.github.io/prefute/images/userProfilePicDefault.png" class="fav-user-pfp" data-user-pfp>
+            <span class="fav-user-data">
+                <b class="header" data-user-name></b><br>
+                <div data-email></div>
+            </span>
+            </div>
+            <div class="fav-btn-wrapper">
+                <a target="_blank" href="#" data-view-profile title="view profile">
+                    <button class="view-user-profile">View Profile</button></a>
+                <button class="view-user-profile" data-remove-profile title="remove user">
+                    <svg width="14px" height="14px"xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" 
+                    viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" 
+                    stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 
+                    4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg></button>
+            </div>
+        </div>
+    </template>
+</dialog>
+
+<fieldset class="signin-field box-effect hide">
+    <div class="signIn-container">
+            <h1>Sign in</h1>
+            <p id="signin-mssg">Sign in to access your account<br></p>
+            <p id="signin-alert" class="alert"></p>            
+        <div>
+            <div>
+                <label for="email-signIn">Email: </label>
+                <input class="inp" type="email" id="email-signIn" placeholder="email">
+            </div>
+            <div>
+                <label for="password-signIn">Password: </label>
+                <input class="inp" type="password" id="password-signIn" placeholder="password">
+                <i class="fa-solid fa-eye password-reveal" id="reveal_password-signIn"></i>
+            </div>
+
+            <button type="button" id="signin-btn"  class="btn">Sign in</button><br>
+            <button type="button" id="forgot-password" class="button-underline">Forgot Password?</button><br>
+            <label id="call-signup-label" for="call-signup-btn">Dont have an account? </label>
+            <button id="call-signup-btn" class="button-underline">Sign Up</button>
+      
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="signUp-field box-effect hide">
+    <div class="signUp-container">
+            <h2>Sign up</h2>
+            <p>Sign up to create an account <br> and make predictions.</p>
+            <p id="signup-alert" class="alert"></p>            
+        <div class="signUp-info-wrapper">            
+            <div><label for="signup-name"><pre>Your Name:             </pre></label>
+            <input class="inp" type="text" id="signup-name" placeholder="name">
+            </div>
+            <div><label for="signup-dob"><pre>Date of Birth:          </pre></label>
+            <input class="inp" type="date" id="signup-dob" value="2006-04-05">
+            </div>
+            <div><label for="email-signUp"><pre>Email:                        </pre></label>
+            <input class="inp" type="email" id="email-signUp" name="email" placeholder="email">
+            </div>
+            <div><label for="password-signUp"><pre>Password:                  </pre></label>
+            <input class="inp" type="password" id="password-signUp" name="password" placeholder="password">
+            <i class="fa-solid fa-eye password-reveal" id="reveal_password-signUp"></i> 
+            </div>
+            <div><label for="confirmPassword"><pre>Confirm Password: </pre></label>
+            <input class="inp" type="password" id="confirmPassword" name="password" placeholder="confirm password">
+            <i class="fa-solid fa-eye password-reveal" id="reveal_confirmPassword"></i>   
+            </div>
+        </div>
+
+            <button type="button" id="signup-btn" class="btn">Sign Up</button><br>
+      
+          <div>
+            <label id="call-signin-label" for="call-signin-btn">Already Have an Account? </label>
+            <button id="call-signin-btn" class="button-underline">Sign in</button>
+          </div>
+      
+    </div>
+</fieldset>
+
+    <div>
+        <div class="forgot-password-container box-effect hide">
+            <h2>Trouble loging in?</h2>
+            <button class="back-button" id="back-button-fp"><i class="fa-solid fa-arrow-left"></i></button>
+            <span id="forgot-password-alert" class="alert"></span>
+            <p>Enter your email and we'll send you<br> instructions to reset your password</p>
+            <input class="inp" type="email" id="forgot-pass-inp" placeholder="Email">
+            <button type="button" id="send-forgotP-email" class="btn">Send Email</button>
+        </div>
+        <div class="change-password-container box-effect hide">
+            <h2>Change Password</h2>
+            <button class="back-button" id="back-button-cp"><i class="fa-solid fa-arrow-left"></i></button>
+            <span id="change-password-alert" class="alert"></span>
+            <div>
+                <label for="reset-pass-new">New Password: </label>
+                <input class="inp" type="password" id="reset-pass-new" name="password" placeholder="new password">
+                <i class="fa-solid fa-eye password-reveal" id="reveal_reset-pass-new"></i>
+            </div>
+            <div>
+                <label for="reset-pass-new-confirm">Confirm New Password: </label>
+                <input class="inp" type="password" id="reset-pass-new-confirm" name="password" placeholder="confirm password">
+                <i class="fa-solid fa-eye password-reveal" id="reveal_reset-pass-new-confirm"></i>
+            </div>
+            <button id="save-new-password" class="btn">Change Password</button>
+        </div>
+    </div>
+</main>
+</body>
+</html>

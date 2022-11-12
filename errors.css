@@ -1,0 +1,43 @@
+body{ 
+    text-align: center; 
+    margin: 10vh 15px; 
+    font-family: Arial, Helvetica, sans-serif; 
+    color: rgb(68,68,68);
+    background-color: rgb(250,249,248); 
+    user-select: none;
+} 
+h1{ 
+    font-size: 600%; 
+    margin: 0; 
+    padding: 0;
+} 
+b{ 
+    font-size: 250%;
+    margin: 0; 
+    padding: 0;
+} 
+div{ 
+    margin-bottom: 2%;
+} 
+p{ 
+    margin: 0; 
+    padding: 0; 
+    font-weight: 750;
+} 
+button{ 
+    border: none;
+    background: transparent; 
+    text-decoration: underline; 
+    cursor: pointer; 
+    color: grey;
+} 
+img{ 
+    height: 35px; 
+    width: 35px;
+    cursor: pointer; 
+    margin-right: 0.5%;
+}
+a{
+    text-decoration: none; 
+    color: rgb(68,68,68)
+}

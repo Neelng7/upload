@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no, user-scalable=0"/>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>   
+    
+    <link class="link" rel="icon" href="images/Logo.png" type="image/icon type">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="account.css">
+    <script src="compute.js" defer></script>
+    <script src="predictionData.js" defer></script>
+    <title>Prefute</title>
+</head>
+<body>
+    <header id="portrait"><br>
+        <a href=""><img src="https://neelng7.github.io/prefute/images/LogoWhite.png" alt=""></a>
+        <b>Prefute</b>
+        <button id="dropdown"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="list-ul" role="img" 
+            style="height:25px;width:25px;"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-list-ul 
+            fa-lg"><path fill="currentColor" d="M16 96C16 69.49 37.49 48 64 48C90.51 48 112 69.49 112 96C112 122.5 90.51 144 64 144C37.49 
+            144 16 122.5 16 96zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 
+            64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 
+            192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 
+            192 384H480zM16 416C16 389.5 37.49 368 64 368C90.51 368 112 389.5 112 416C112 442.5 90.51 464 64 464C37.49 464 16 442.5 16 416zM112 
+            256C112 282.5 90.51 304 64 304C37.49 304 16 282.5 16 256C16 229.5 37.49 208 64 208C90.51 208 112 229.5 112 256z" ></path></svg></button>
+        <br> <br>
+    </header>
+    <header id="landscape">
+        <div class="page-title">
+            <a href=""><img src="https://neelng7.github.io/prefute/images/LogoWhite.png" alt=""></a>
+            <h1 id="h1main">Prefute</h1></div>
+        <div class="page-anchors">
+            <a title="About (Alt+1)" href="">About</a>
+            <a title="Search (Alt+2)" href="search.html">Search</a>
+            <a title="New Prediction (Alt+3)" href="new.html">New Prediction</a>
+            <a title="My Account (Alt+4)" href="account.html">My Account</a>
+            <a title="Report Problem (Alt+5)" id="reportAnchor">&#x2691;</a><br>
+        </div>
+    </header><br><br><br>
+    <div id="dropdown-menu">
+        <ul><br>
+            <a href=''><li>About</li></a>
+            <a href="search.html"><li>Search</li></a>
+            <a href="new.html"><li>New Prediction</li></a>
+            <a href="account.html"><li><i class="fa-solid fa-circle-user"></i> My Account</li></a>
+            <li id="reportAnchorDropdown">Report a Problem &#x2691;</li>
+        </ul>
+    </div>
+
+<main>
+    <h1>Prediction</h1>
+
+    <div class="account-display-container">
+        <a id="profile"><img class="account-picture" src="https://neelng7.github.io/prefute/images/userProfilePicDefault.png"></a>
+        <div class="account-info-conatiner">
+            <p id="account-name">User</p>
+            <span class="prediction-count">
+                <p>Predictions: </p>
+                <p><span id="public-predictions-count">0</span> Public</p>
+                <p><span id="private-predictions-count">0</span> Private</p>
+            </span>
+            <p id="account-email">email@gmail.com</p><br>
+            <button id="view-profile" class="account-btn-last">View Profile</button>
+            <button id="edit-prediction" class="account-btn-last hide">Edit Prediction Details</button>
+            <button id="cacel-edit" class="account-btn-last hide">Cancel</button>
+
+        </div>
+        </div><br>
+
+        <h2 id="subheading"></h2>
+        <div class="line-seperator"></div>
+        <span id="load"><br><br><br>
+            <i class="fa-solid fa-circle-notch fa-spin" id="search-load"></i>
+        </span>
+        <div class="prediction-wrapper hide">
+            <h3 title="prediction id" id="prediction-id"></h3>
+            <div id="upload-date"></div><br>
+            <div id="release-date"></div><br>
+            <textarea title="prediction" id="main-prediction" disabled cols="42" rows="6.5"></textarea>
+
+            <fieldset id="notReleased" class="fieldset">
+                <div class="not-released-wrapper"><br>
+                    <i style="font-size:24px;" id="predictionLock2" class="fa">&#xf023;</i><br>
+                    <p>This prediction has currently not been released.</p>
+                </div>
+
+                <div id="prediction-password-verification" class="hide">
+                    <p>This prediction is password protected<br></p>
+                    <p>Enter the password to view the prediction</p>
+                    <p id="password-alert" class="alert"></p>
+                    <label for="password">Password: </label>
+                    <input class="inp" type="password" id="password-verification-inp" placeholder="password">
+                    <i class="fa-solid fa-eye password-reveal"></i><br>
+                    <button type="button" class="btn" id="password-submit">Submit</button><br>
+                </div>
+            </fieldset>
+
+            <div class="edit-section hide">
+                <label for="copy-link" class="pointer-label">Copy Shareable Link</label>
+                <button id="copy-link" title="copy" class="btn-empty">Copy
+                    <i class="fa-solid fa-copy"></i>
+                </button><br><br>
+                <fieldset class="edit-section-field edit">
+                    <legend>Editing Options</legend><br>
+                </fieldset>
+                <div id="editing-options" class="centre-container edit">
+                    <label for="release-date-edit"><pre>Release Date: </pre></label>
+                    <input class="inp edit" type="date" name="release date" id="release-date-edit" required><br>
+            
+                    <label for="release-time"><pre>Release Time:</pre></label>
+                    <input class="inp edit" type="time" name="release time" id="release-time" required><br>
+            
+                    <label for="prediction-visibility"><pre>Visibility:        </pre></label>
+                    <select class="inp edit" name="visibility" id="prediction-visibility">
+                        <option value="Public">Public</option>
+                        <option value="Private">Private</option>
+                    </select><br>
+            
+                    <div class="public">
+                        <label for="public-tags"><pre>Tags:                 </pre></label>
+                        <input class="inp edit" type="text" placeholder="tags" id="public-tags"><br>
+                    </div>
+            
+                    <div class="private hide">
+                        <label for="password-edit"><pre>Password:        </pre></label>
+                        <input class="inp edit" type="password" id="password-edit" placeholder="password">
+                        <i class="fa-solid fa-eye password-reveal" id="reveal-edit"></i><br>
+                    </div>
+            
+                    <button class="btn" id="save-edited-changes">Save Changes</button><br>
+
+                    <div class="delete-wrapper">
+                        <label for="delete-prediction">Delete Prediction</label>
+                        <button type="button" id="delete-prediction" class="btn-empty">Delete 
+                            <svg width="14px" height="14px"xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" 
+                                viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" 
+                                stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 
+                                4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg></button><br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

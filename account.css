@@ -1,0 +1,356 @@
+pre{
+    font-family: "EB Garamond";
+    display: inline;
+}
+
+/* Account profile */
+.account-picture{
+    border-radius: 50%;
+    border: 2px solid black;
+}
+.account-display-container .account-picture{
+    width: 180px;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+}
+.account-details-container{
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+.account-display-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(10px + 2vw)
+}
+.account-info-conatiner{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-size: 110%;
+}
+.account-info-conatiner > p{
+    margin: 0;
+    padding: 0;
+}
+.prediction-count{
+    display: flex;
+    gap: 10px;
+}
+.account-info-conatiner button{
+    background: none;
+    border: 1px solid var(--text-color);
+    border-radius: 0.2em;
+    padding-block: 3px;
+    padding-inline: 5px;
+    cursor: pointer;
+}
+.account-info-btns{
+    display: flex;
+    gap: 2%;
+}
+#signout-btn{
+    flex: 1 1 33%;
+}
+#edit-profile-btn{
+    flex: 1 1 65%;
+}
+.account-btn-last{
+    padding-inline: 10px;
+    width: 98%;
+}
+.account-btn-last:hover{
+    background-color: rgba(55, 55, 55, 3%);
+}
+#account-name{
+    font-size: 125%;
+}
+.line-seperator{
+    position: relative;
+    height: 1px;
+    top: -5px;
+    background: var(--text-color);
+    width: 80vw;
+    max-width: 75ch;
+    margin: 0 auto;
+}
+.predictions-container{
+    margin-inline: calc(10px + 15vw);
+    display: grid;
+}
+#no-predictions-account{
+    position: relative;
+    top: 50px;
+    font-size: 105%;
+}
+/* Account Profile End */
+
+
+/* Edit Profile */
+.dialog{
+    width: 80vw;
+    max-width: 600px;
+    height: 80vh;
+    max-height: 80ch;
+    padding: 0;
+    overflow-x: hidden;
+    user-select: none;
+    border-radius: 2%;
+    background-color: var(--background-white);
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+}
+.dialog::backdrop{
+    background: rgba(10, 10, 10, 0.5);
+    pointer-events: none;
+}
+dialog button{
+    cursor: pointer;
+}
+.exitModal{
+    position: absolute;
+    left: calc(100% - 2.5em);
+    top: 0.5em;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    color: inherit;
+    background: none;
+}
+.button-underline{
+    background: none;
+    border: none;
+    text-decoration: underline;
+    /* font-family: inherit; */
+    cursor: pointer;
+    font-size: 0.8em;
+    color: var(--header-color);
+}
+#check-icon{
+    position: relative;
+    color: rgb(50, 240, 50);
+    font-size: 0.9rem;
+    left: 2px;
+}
+#verify-email{
+    background: none;
+    border: none;
+    margin: 0;
+    padding-right: 1px;
+    font-weight: 5;
+    color: var(--header-color);
+}
+#verify-email::after{
+    content: "*";
+    color: red;
+}
+.line-seperator.edit-modal{
+    width: 80%;
+    height: 0.5px;
+}
+.edit-profile-container{
+    text-align: left;
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.edit-profile-container > *{
+    margin: 10px;
+}
+#edit-profile-pic{
+    /* min-width: 70px; */
+    width: 80px;
+    aspect-ratio: 1/1;
+    margin: 3px;
+    cursor: pointer;
+}
+.edit-profile-container > input{
+    border: none;
+    border-radius: 0;
+    border-bottom: 1.5px solid var(--text-color);
+    background-color: rgb(252, 251, 250);
+    color: var(--text-color);
+}
+.edit-profile-options-wrapper{
+    text-align: left;
+    margin: 0 auto;
+    position: relative;
+    top: 25px;
+}
+.edit-profile-options-wrapper button{
+    margin-block: 10px;
+    background-color: transparent;
+    border: none;
+    color: var(--header-color);
+}
+/* Uplaod Img */
+#upload-profile-pic-inp{
+    display: none;
+}
+#delete-profile-pic, #upload-profile-pic-label{
+    font-family: inherit;
+    font-size: 0.8em;
+}
+#imageName{
+    /* border-bottom: none; */
+    padding-top: 2px;
+}
+/* Edit Profile End */
+
+/* Sign In/ Up */
+.box-effect{
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 0.7em;
+    border: none;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+    text-align: center;
+    background-color: white;
+    top: 15vh;
+}
+.signUp-field{top: 5vh}
+.signIn-container, .signUp-container{
+    margin-inline: 20px; 
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+.search-parameters-container{
+    top: 0;
+    padding-inline: 5vw;
+    padding-block-end: 25px;
+    padding-block-start: 15px;
+    margin-block: 20px;
+}
+.signUp-info-wrapper{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+.signIn-container > h1, .signIn-container > p{
+    margin: 0;
+    padding: 0;
+}
+#email-signIn{
+    margin-top: 20px;
+}
+.forgot-password-container, .change-password-container{
+    position: relative;
+    top: 8vh;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 20px;
+}
+.change-password-container{
+    padding-block: 35px;
+}
+#forgot-password{
+    position: relative;
+    top: 1rem;
+}
+#send-forgotP-email, #save-new-password{
+    position: relative;
+    top: -5px;
+    left: 0;
+}
+#call-signup-btn, #call-signup-label, 
+#call-signin-label, #call-signin-btn{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    top: 1.75rem;
+}
+.password-wrapper{
+    display: flex;
+}
+.password-inp-wrapper{
+    display: inline;
+}
+.back-button{
+    background: none;
+    border: none;
+    font-weight: bold;
+    color: var(--text-color);
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 0.5rem;
+    left: 0.55rem;
+    cursor: pointer;
+}
+/* Sign In/ Up */
+
+/* Favourites Modal */
+.favourites-card{
+    width: 80%;
+    margin-top: 15px;
+    padding-bottom: 10px;
+    margin-inline: 50px;
+    border-bottom: 1px solid var(--text-color);
+}
+.fav-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+}
+.fav-wrapper>*{
+/* .favourites-card>*{ */
+    margin-inline: 10px;
+}
+.fav-user-data{
+    text-align: left;
+}
+.fav-user-pfp{
+    border-radius: 50%;
+    border: 2px solid black;
+    width: 75px;
+    aspect-ratio: 1/1;
+    background-image: url("https://neelng7.github.io/prefute/images/userProfilePicDefault.png");
+}
+.view-user-profile{
+    background: none;
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    background-color: white;
+    color: var(--text-color);
+    padding-inline: 10px;
+    padding-block: 5px;
+    transition: 5s ease-in-out;
+}
+.fav-btn-wrapper{
+    display: inline;
+    float: right;
+    position: relative;
+    top: -3em;
+}
+#noFavourites p{
+    font-size: 90%;
+    color: rgb(63, 63, 63);
+    position: relative;
+    top: -5px;
+}
+/* Favourites Modal End */
+
+@media only screen and (max-width: 485px){
+    .account-display-container{
+        display: grid;
+        position: relative;
+        margin: 0 auto;
+    }
+    .account-info-conatiner{
+        text-align: center;
+    }
+    #account-picture{
+        min-width: 140px;
+        max-width: 150px;
+        display: flex;
+        justify-self: center;
+        align-self: center;
+    }
+    /* .signUp-container input{
+        width: calc(100% - 6ch);
+    } */
+}

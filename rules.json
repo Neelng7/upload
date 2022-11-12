@@ -1,0 +1,31 @@
+{
+    "rules": {
+        "users":{
+              "$uid":{
+                    ".read": "$uid === auth.uid",
+                  "userData":{
+                      ".read":"$uid != null",
+                      ".write": "$uid === auth.uid"
+                  },  
+                  "$predictionID":{
+                    "predictionData":{
+                        ".read": "data.parent().child('public/release-timestamp').val() < now || $uid === auth.uid",
+                        ".write": "!newData.parent().child('public').exists() && $uid === auth.uid"
+                    },
+                    "private":{
+                        ".read": "true",
+                        ".write": "!newData.parent().child('public').exists() && $uid === auth.uid"
+                    },
+                    "public":{
+                        ".read": "true",
+                        ".write": "$uid === auth.uid"
+                    }
+                }
+              }
+          },
+          "data":{
+            ".read": "true",
+            ".write": "auth.uid != null"
+          }
+      }
+  }

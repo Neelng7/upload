@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no, user-scalable=0"/>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>   
+    
+    <link class="link" rel="icon" href="images/Logo.png" type="image/icon type">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="account.css">
+    <script src="compute.js" defer></script>
+    <script src="search.js" defer></script>
+    <title>Search - Prefute</title>
+</head>
+<body>
+    <header id="portrait"><br>
+        <a href="/"><img src="images/LogoWhite.png"></a>
+        <b>Prefute</b>
+        <button id="dropdown"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="list-ul" role="img" 
+            style="height:25px;width:25px;"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-list-ul 
+            fa-lg"><path fill="currentColor" d="M16 96C16 69.49 37.49 48 64 48C90.51 48 112 69.49 112 96C112 122.5 90.51 144 64 144C37.49 
+            144 16 122.5 16 96zM480 64C497.7 64 512 78.33 512 96C512 113.7 497.7 128 480 128H192C174.3 128 160 113.7 160 96C160 78.33 174.3 
+            64 192 64H480zM480 224C497.7 224 512 238.3 512 256C512 273.7 497.7 288 480 288H192C174.3 288 160 273.7 160 256C160 238.3 174.3 224 
+            192 224H480zM480 384C497.7 384 512 398.3 512 416C512 433.7 497.7 448 480 448H192C174.3 448 160 433.7 160 416C160 398.3 174.3 384 
+            192 384H480zM16 416C16 389.5 37.49 368 64 368C90.51 368 112 389.5 112 416C112 442.5 90.51 464 64 464C37.49 464 16 442.5 16 416zM112 
+            256C112 282.5 90.51 304 64 304C37.49 304 16 282.5 16 256C16 229.5 37.49 208 64 208C90.51 208 112 229.5 112 256z" ></path></svg></button>
+        <br> <br>
+    </header>
+    <header id="landscape">
+        <div class="page-title">
+            <a href="/"><img src="images/LogoWhite.png"></a>
+            <h1 id="h1main">Prefute</h1></div>
+        <div class="page-anchors">
+            <a title="About (Alt+1)" href="/">About</a>
+            <a class="selected" title="Search (Alt+2)" href="search.html">Search</a>
+            <a title="New Prediction (Alt+3)" href="new.html">New Prediction</a>
+            <a title="My Account (Alt+4)" href="account.html">My Account</a>
+            <a title="Report Problem (Alt+5)" id="reportAnchor">&#x2691;</a><br>
+        </div>
+    </header><br><br><br>
+    <div id="dropdown-menu">
+        <ul><br>
+            <a href='/'><li>About</li></a>
+            <a href="search.html"><li>Search</li></a>
+            <a href="new.html"><li>New Prediction</li></a>
+            <a href="account.html"><li><i class="fa-solid fa-circle-user"></i> My Account</li></a>
+            <li id="reportAnchorDropdown">Report a Problem &#x2691;</li>
+        </ul>
+    </div>
+    
+<main>
+    <div class="fixed">
+        <h1>Search</h1>
+        <p>Search for predictions by entering the <span class="search-type">prediction ID/ name/ email/ public tags</span></p>
+        <p>Search by entering all relevant information seperated by a space</p><br>
+
+        <label for="search">Search Prediction: </label>
+        <input type="search" id="search" data-seach>
+        <p id="searchResults"></p>
+
+        <div class="search-parameters-container box-effect">
+            <h2>Search Filters</h2>
+            <div class="parameters-wrapper">
+            <div class="searchBy-filters-wrapper">Search By: <br>
+                <label for="search-by-filter-1"><pre>Prediction ID  </pre></label>
+                <input name="search-by" type="radio" checked class="search-filter-checkbox" id="search-by-filter-1"><br>
+                <label for="search-by-filter-2"><pre>User                   </pre></label>
+                <input name="search-by" type="radio" class="search-filter-checkbox" id="search-by-filter-2"><br>
+                <label for="search-by-filter-3"><pre>Public Tags      </pre></label>
+                <input name="search-by" type="radio" class="search-filter-checkbox" id="search-by-filter-3"><br>
+            </div><br>
+            <div class="search-only-filters-wrapper">Only Show: <br>
+                <label for="search-only-filters-released"><pre>Released Predictions     </pre></label>
+                <input type="checkbox" checked class="search-only-filter" id="search-only-filters-released"><br>
+                <label for="search-only-filters-unreleased"><pre>Unreleased Predictions </pre></label>
+                <input type="checkbox" checked class="search-only-filter" id="search-only-filters-unreleased"><br>
+                <label for="search-only-filters-public"><pre>Public Predictions          </pre></label>
+                <input type="checkbox" checked class="search-only-filter" id="search-only-filters-public"><br>
+                <label for="search-only-filters-private"><pre>Private Predictions         </pre></label>
+                <input type="checkbox" checked class="search-only-filter" id="search-only-filters-private"><br>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <i class="fa-solid fa-circle-notch fa-spin" id="search-load"></i><br>
+    <h3 id="noSearchResults" class="hide">No Results Found</h3>
+    
+    <div id="prediction-wrapper">
+        <div class="prediction-cards" data-prediction-cards-container>
+            <!-- <a href="#"  class="card">
+                <i style="font-size:24px" id="predictionLock" data-lock class="fa fa-unlock"></i>
+                <img class="releasedIcon" data-released src="/images/released-symbol.png"><br>
+                <div class="header" data-prediction-id>test-prediction-1</div>
+                <div class="name" data-user-name>Name: Neel Narain Gupta</div>
+                <div class="email" data-user-email>Email: neel.msvv@gmail.com</div>
+                <div class="release-date" data-release-date>Release Date: Mon Jun 05 2023, at 15:00</div>
+                <div class="search-tags" data-tags>#predict, #first, #test, #yes</div>
+            </a> -->
+        </div>
+        <div class="no-prediction-found hide">
+            <h2>No Results Found</h2>
+        </div>
+    </div>
+    <template data-template>
+    <a href="#"  class="card">
+        <i style="font-size:24px" id="predictionLock" data-lock class="fa"></i>
+        <img class="releasedIcon" data-released><br>
+        <div class="header" data-prediction-id></div>
+        <div class="name" data-user-name></div>
+        <div class="email" data-user-email></div>
+        <div class="release-date" data-release-date></div>
+        <div class="search-tags" data-tags></div>
+    </a>
+    </template>
+</div>
+</main>
+</body>
+</html>
